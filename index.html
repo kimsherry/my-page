@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Page</title>
+
+<style>
+:root {
+    --bg: #0f1115;
+    --card: #161b22;
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+}
+
+body.light {
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --text: #111827;
+    --muted: #6b7280;
+}
+
+body {
+    margin: 0;
+    font-family: Pretendard, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: 0.3s;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+h1 { text-align: center; }
+
+.card {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,.3);
+}
+
+.profile {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.profile img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 2px solid #2f81f7;
+}
+
+.muted { color: var(--muted); }
+
+a.github {
+    color: #58a6ff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a.github:hover {
+    text-decoration: underline;
+}
+
+#toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    border: none;
+    background: #222;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+body.light #toggle {
+    background: #ddd;
+    color: #111;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    color: var(--muted);
+}
+</style>
+</head>
+<body>
+
+<button id="toggle">🌙</button>
+
+<div class="container">
+    <h1>👋 Hi everyone</h1>
+
+    <div class="card profile">
+        <img id="avatar">
+        <div>
+            <h2 id="name"></h2>
+            <a id="github" class="github" target="_blank"></a>
+            <p class="muted" id="bio"></p>
+            <p>⭐ Public Repos: <b id="repos"></b></p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>🙋‍♂️ About Me</h3>
+        <p>저는 리듬게임, 자동화, 아기고래, API 만드는 걸 좋아합니다.</p>
+    </div>
+
+    <footer>© 2025 kimsherry</footer>
+</div>
+
+<script>
+fetch("https://api.github.com/users/kimsherry")
+  .then(res => res.json())
+  .then(data => {
+    avatar.src = data.avatar_url;
+    name.textContent = data.name || data.login;
+    bio.textContent = data.bio || "No bio";
+    repos.textContent = data.public_repos;
+
+    github.textContent = "@" + data.login;
+    github.href = data.html_url;
+  });
+
+const toggle = document.getElementById("toggle");
+
+toggle.onclick = () => {
+    document.body.classList.toggle("light");
+    toggle.textContent =
+        document.body.classList.contains("light") ? "☀️" : "🌙";
+};
+</script>
+
+</body>
+</html>
