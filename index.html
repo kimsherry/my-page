@@ -99,8 +99,7 @@ footer {
 <button id="toggle">🌙</button>
 
 <div class="container">
-
-    <!-- Typing SVG -->
+    
     <div style="text-align:center; margin-bottom:20px;">
         <img id="typing" />
     </div>
@@ -128,7 +127,7 @@ const typing = document.getElementById("typing");
 
 function updateTyping() {
     const isLight = document.body.classList.contains("light");
-    const color = isLight ? "111827" : "F7F6F6";
+    const color = isLight ? "111827" : "F5F5F5";
 
     typing.src =
         `https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&width=500&color=${color}&lines=Hi+everyone!+I'm+kimsherry;My+mail :+admin@kimsherry.xyz`;
@@ -141,7 +140,7 @@ fetch("https://api.github.com/users/kimsherry")
     name.textContent = data.name || data.login;
     bio.textContent = data.bio || "No bio";
     repos.textContent = data.public_repos;
-    github.textContent = "@" + data.login;
+    github.textContent = "" + data.login;
     github.href = data.html_url;
   });
 
